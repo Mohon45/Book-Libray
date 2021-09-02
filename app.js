@@ -25,6 +25,7 @@ const loadBookLibray = () => {
 const displayError = () => {
     document.getElementById('error-message').style.display = 'block';
     document.getElementById('search-result').textContent ='';
+    document.getElementById('found-number').style.display = 'none'
 }
 
 const displayBookLibray = booksData => {
@@ -41,9 +42,11 @@ const displayBookLibray = booksData => {
     
     if(books === null){
         displayError();
+        
     }
     else{
         document.getElementById('error-message').style.display = 'none';
+        document.getElementById('found-number').style.display = 'block'
 
         const h1 = document.createElement('h1');
         h1.classList.add('style-h1')
