@@ -1,5 +1,5 @@
-// hide error
 document.getElementById('error-message').style.display = 'none';
+document.getElementById('spinner').style.display = 'none';
 
 const loadBookLibray = () => {
     const searchField = document.getElementById('search-field');
@@ -11,11 +11,14 @@ const loadBookLibray = () => {
         displayError();
     }
     else{
+        // Display Spinner
+        document.getElementById('spinner').style.display = 'block';
+        // hide error
         document.getElementById('error-message').style.display = 'none';
         // Clear Search Result
         document.getElementById('search-result').textContent ='';
 
-        const url = `http://openlibrary.org/search.json?q=${searchText}`;
+        const url = `https://openlibrary.org/search.json?q=${searchText}`;
         fetch (url)
         .then(res => res.json())
         .then(data => displayBookLibray(data))
@@ -24,6 +27,7 @@ const loadBookLibray = () => {
 
 const displayError = () => {
     document.getElementById('error-message').style.display = 'block';
+    document.getElementById('spinner').style.display = 'none';
     document.getElementById('search-result').textContent ='';
     document.getElementById('found-number').style.display = 'none'
 }
@@ -46,6 +50,7 @@ const displayBookLibray = booksData => {
     }
     else{
         document.getElementById('error-message').style.display = 'none';
+        document.getElementById('spinner').style.display = 'none';
         document.getElementById('found-number').style.display = 'block'
 
         const h1 = document.createElement('h1');
@@ -66,7 +71,7 @@ const displayBookLibray = booksData => {
                 <img src="${imgUrl}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h3 class="card-title">${book.title}</h3>
-                    <h5>Author Name: ${book.author_name[0]}</h5>
+                    <h5>Author Name: ${book.author_name?.[0]}</h5>
                     <h5>Publisher: ${book.publisher}</h5>
                     <h5>First Published Year : ${book.first_publish_year}</h5>
                 </div>
